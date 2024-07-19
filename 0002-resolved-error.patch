@@ -1,0 +1,149 @@
+From deb5568bc8486afee186faf347c982b7b5caf174 Mon Sep 17 00:00:00 2001
+From: Sahil-263 <sahilarora2063@gmail.com>
+Date: Fri, 19 Jul 2024 14:26:00 +0530
+Subject: [PATCH 2/2] resolved error
+
+---
+ 0001-completed-task1.patch          |  47 ++++++++++++++++++++++++++++
+ __pycache__/client3.cpython-311.pyc | Bin 0 -> 1907 bytes
+ client3.py                          |   3 +-
+ client_test.py                      |   6 ++++
+ multi_commit.patch                  |   1 +
+ 5 files changed, 56 insertions(+), 1 deletion(-)
+ create mode 100644 0001-completed-task1.patch
+ create mode 100644 __pycache__/client3.cpython-311.pyc
+ create mode 100644 multi_commit.patch
+
+diff --git a/0001-completed-task1.patch b/0001-completed-task1.patch
+new file mode 100644
+index 0000000..970127b
+--- /dev/null
++++ b/0001-completed-task1.patch
+@@ -0,0 +1,47 @@
++From f1037944da29d5d79e490e54c51780132c2f5d55 Mon Sep 17 00:00:00 2001
++From: Sahil-263 <sahilarora2063@gmail.com>
++Date: Fri, 19 Jul 2024 14:12:09 +0530
++Subject: [PATCH] completed task1
++
++---
++ client3.py | 10 +++++++---
++ 1 file changed, 7 insertions(+), 3 deletions(-)
++
++diff --git a/client3.py b/client3.py
++index 3fc09b7..12adfab 100644
++--- a/client3.py
+++++ b/client3.py
++@@ -35,14 +35,17 @@ def getDataPoint(quote):
++     stock = quote['stock']
++     bid_price = float(quote['top_bid']['price'])
++     ask_price = float(quote['top_ask']['price'])
++-    price = bid_price
+++    price = (bid_price + ask_price) / 2
++     return stock, bid_price, ask_price, price
++ 
++ 
++ def getRatio(price_a, price_b):
++     """ Get ratio of price_a and price_b """
++     """ ------------- Update this function ------------- """
++-    return 1
+++    if price_b == 0:
+++        # when price_b is 0 avoid throwing ZeroDivisionError
+++        return
+++    return price_a / price_b
++ 
++ 
++ # Main
++@@ -52,8 +55,9 @@ if __name__ == "__main__":
++         quotes = json.loads(urllib.request.urlopen(QUERY.format(random.random())).read())
++ 
++         """ ----------- Update to get the ratio --------------- """
+++        prices = {}
++         for quote in quotes:
++             stock, bid_price, ask_price, price = getDataPoint(quote)
++             print("Quoted %s at (bid:%s, ask:%s, price:%s)" % (stock, bid_price, ask_price, price))
++ 
++-        print("Ratio %s" % getRatio(price, price))
+++        print("Ratio %s" % getRatio(prices["ABC"], prices["DEF"]))
++-- 
++2.44.0.windows.1
++
+diff --git a/__pycache__/client3.cpython-311.pyc b/__pycache__/client3.cpython-311.pyc
+new file mode 100644
+index 0000000000000000000000000000000000000000..0793bf7f057e11e94915058fc18703c0721e9cc8
+GIT binary patch
+literal 1907
+zcmaJBOKcNIbjJJf8rw-6lF$&hT95)5$PYxDMxj+mOvRy5LJB1-7i;60B%3&1v%4w6
+zbtJ3m!Ie0;5)xKRr5sR7#f73u<wzxZ>%ogGVU1KNQcs*}iJmz1%{q<~q%xm3@6EjT
+z=KW@V3WpCMXm^i&zxYo8p}#rNY~dZ`)t?wR5J3c|k=9tThCSM+3B;#~M9?H6euFfb
+zNC5p*A@Zt^%Ugf=5DmaQK&36v^AKjE?Wd;D7mu|d@S&AZlY<H?O&ic=TXT2sO2y6g
+zy>t@?J$R*c6Kp?h9-;mB?x!|8cG>nITW^uqA^~I|t&>K;gOl1pxLKwL_iIgv2x(nf
+zx7MQ_g7bHXpLYF#i9)*p251k!1N0EU;E#d*k{I1S<w=A9`e`Q#_wL#SR9lPMf@nYV
+zBF-6dGJ3;L(DVzzbCAP16l;IUnWl3`mK`TMHZ+trQ+j&Yw4Jfh;nCrt8|&1%^|3+D
+zf3;!!3sFq%MiQjJ7bL)Zbq~N@6hL{<*|K8;JA1g{%-1?2LJQyT=Z5bMDY3=*7AYa`
+z%L_TMgGjj`LK|Wp^PRl7D1w)A?gMqkGRb<1s(L!DI?GheP)aCKztq#~)K(o+U7{Ik
+z=?-wHM0fP8X=EIgNw#CAR+-;1v&jX6Fez&pDcYcQd-Wv`bPO|TF>UHjOk&cFb<?31
+zj|~feK(fIf0Nw^_K|+u%0Z@5+Jvup-xMEYwPR!}cMmjM??Nzuev1nTQ5*=8{uB8U-
+zn{>bd4Fe;IRN9~!=j>qi77Hy=X9_Hx;g(wbRj6FG2B3hp#qnAwQaXNnx)A@Xqq{`Q
+zm#RI-Hg8sYhTM+fYR7Ql(*JDN!ae0)H+*zccSFYu@mjE>6f4g^kSf7}ia78Jw4>B+
+zc>%$3uMFM;#47_#@XnL>5#Jn?MIQ5{Kq7?PQS}q*s1RqvRLw=zi%wEk^$gj;7gURD
+zoc<Zbe9XUd-b5B`ex|Ax{|%S|0l3UHSzSP$glTgd8qWLMN=LrV7xLRmTT!kBJ4>It
+z!DvN{TKt<}N;0{o8<}J>=bz;XBWf<7>W+E>QZ|;8Ppc5^v7B<cVbs`b9Lp)*RcgP@
+zgoz82OqhyajP){c#Wpicw!i^%jkT>?>9nyhXi<1Mw!`EG&7|2Y@yqiJPkU+d%;hFz
+z^fj7HGSPsFVG`(Aq6{aQ1hqtL=5K28gBCMO;TkB4HQiyNMRmetuheWNdqJ`-{(pOg
+zXF;%$#XnE4*u0vB3W@Ly?!6bi*UI=ByofaY$T|gk{HfX$U|ql%*H0oGDg=42p>V<L
+zHPl^cj=GEjrwbA+l2X8R*^dY7Xcu(J_}x0%1zkuC6?4yp-ipw>9gY+~EA^N9%lNw!
+zcTRkJ{r2@b3P_W<0gJd6=__^JIb6PYZ~8^_%=74(N9TSUe?0y){8WAx{=NNKyL)z~
+zdUnQ*&Q_zdFQQkUN3XikYt`sAH!@$1%opWtWwI7I2r2LGt0P~4fMyPh@!H7wN6{zL
+z9hs_*Ou3=KV!ZTW*?7<m&!iYH#-FV7{?y>TGOO*3gkEWk&ILD=s)kY(Z)_{!qEuWd
+ykCsO_FFrVT|I<hBKk5JVyxTWX?VE7hCS2u0Rk={{M*R>H4}<G<vE`?ihW`K_xY%<5
+
+literal 0
+HcmV?d00001
+
+diff --git a/client3.py b/client3.py
+index 12adfab..fa87eef 100644
+--- a/client3.py
++++ b/client3.py
+@@ -58,6 +58,7 @@ if __name__ == "__main__":
+         prices = {}
+         for quote in quotes:
+             stock, bid_price, ask_price, price = getDataPoint(quote)
++            prices[stock] = price
+             print("Quoted %s at (bid:%s, ask:%s, price:%s)" % (stock, bid_price, ask_price, price))
+ 
+-        print("Ratio %s" % getRatio(prices["ABC"], prices["DEF"]))
++        print("Ratio %s" % getRatio(prices['ABC'], prices['DEF']))
+diff --git a/client_test.py b/client_test.py
+index af2bf26..1f9e9b8 100644
+--- a/client_test.py
++++ b/client_test.py
+@@ -8,6 +8,9 @@ class ClientTest(unittest.TestCase):
+       {'top_ask': {'price': 121.68, 'size': 4}, 'timestamp': '2019-02-11 22:06:30.572453', 'top_bid': {'price': 117.87, 'size': 81}, 'id': '0.109974697771', 'stock': 'DEF'}
+     ]
+     """ ------------ Add the assertion below ------------ """
++    # for quote in quotes:
++    #   stock, bid_price, ask_price, price = getDataPoint(quote)
++    #   self.assertEqual(price, (bid_price + ask_price) / 2)
+ 
+   def test_getDataPoint_calculatePriceBidGreaterThanAsk(self):
+     quotes = [
+@@ -15,6 +18,9 @@ class ClientTest(unittest.TestCase):
+       {'top_ask': {'price': 121.68, 'size': 4}, 'timestamp': '2019-02-11 22:06:30.572453', 'top_bid': {'price': 117.87, 'size': 81}, 'id': '0.109974697771', 'stock': 'DEF'}
+     ]
+     """ ------------ Add the assertion below ------------ """
++    # for quote in quotes:
++    #   stock, bid_price, ask_price, price = getDataPoint(quote)
++    #   self.assertEqual(price, (bid_price + ask_price) / 2)
+ 
+ 
+   """ ------------ Add more unit tests ------------ """
+diff --git a/multi_commit.patch b/multi_commit.patch
+new file mode 100644
+index 0000000..aadedda
+--- /dev/null
++++ b/multi_commit.patch
+@@ -0,0 +1 @@
++0001-completed-task1.patch
+-- 
+2.44.0.windows.1
+

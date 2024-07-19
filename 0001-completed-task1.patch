@@ -1,7 +1,7 @@
 From f1037944da29d5d79e490e54c51780132c2f5d55 Mon Sep 17 00:00:00 2001
 From: Sahil-263 <sahilarora2063@gmail.com>
 Date: Fri, 19 Jul 2024 14:12:09 +0530
-Subject: [PATCH] completed task1
+Subject: [PATCH 1/2] completed task1
 
 ---
  client3.py | 10 +++++++---
